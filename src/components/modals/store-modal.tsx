@@ -15,12 +15,15 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 const formSchema = z.object({
   name: z.string().min(1),
 })
 export const StoreModal = () => {
   const storemodal = useStoreModal()
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,17 +51,27 @@ export const StoreModal = () => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="E-Commerce" {...field} />
+                      <Input
+                        disabled={isLoading}
+                        placeholder="E-Commerce"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-                <Button variant="outline" onClick={storemodal.onClose}>
+                <Button
+                  disabled={isLoading}
+                  variant="outline"
+                  onClick={storemodal.onClose}
+                >
                   Cancel
                 </Button>
-                <Button type="submit">Continue</Button>
+                <Button disabled={isLoading} type="submit">
+                  Continue
+                </Button>
               </div>
             </form>
           </Form>
