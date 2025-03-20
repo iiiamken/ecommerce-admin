@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import axios from "axios"
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -31,7 +32,16 @@ export const StoreModal = () => {
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values)
+    try {
+      setIsLoading(true)
+
+      const response = await axios.post("/api/stores", values)
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
   }
   return (
     <Modal
