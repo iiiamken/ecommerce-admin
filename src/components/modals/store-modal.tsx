@@ -39,8 +39,8 @@ export const StoreModal = () => {
 
       const response = await axios.post("/api/stores", values)
 
-      //window.location.assign(`/${response.data.id}`)
-      redirect(`/${response.data.id}`)
+      window.location.assign(`/${response.data.id}`)
+      // redirect(`/${response.data.id}`)
     } catch (error) {
       toast.error("Something went wrong")
     } finally {
